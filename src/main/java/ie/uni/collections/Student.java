@@ -5,10 +5,10 @@ public class Student {
   private final String STUDENT_EMAIL;
   private final String STUDENT_COURSE;
 
-  public Student(String stName, String stEmail, String stId) {
-    this.STUDENT_NAME = stName;
-    this.STUDENT_EMAIL = stEmail;
-    this.STUDENT_COURSE = stId;
+  public Student(String studentName, String studentEmail, String studentId) {
+    this.STUDENT_NAME = studentName;
+    this.STUDENT_EMAIL = studentEmail;
+    this.STUDENT_COURSE = studentId;
   }
 
   public String getEmail() {

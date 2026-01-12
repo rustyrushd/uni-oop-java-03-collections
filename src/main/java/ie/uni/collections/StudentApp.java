@@ -26,11 +26,13 @@ public class StudentApp {
 
     Scanner scan1 = new Scanner(System.in);
     System.out.println("Please enter the number of students: ");
+    // TODO if else for positive number, NumberFormatException/InputMismatchException for invalid number
     int count = scan1.nextInt();
     scan1.nextLine();
 
     // prompt user for count number of students and attribute input
     for (int i = 0; i < count; i++) {
+      System.out.println("Student " + (i + 1));
       System.out.println("Please enter Student name: ");
       String name = firstCap(scan1.nextLine().toLowerCase().trim());
 
@@ -45,10 +47,10 @@ public class StudentApp {
 
       System.out.println("Please enter Course: ");
       String course = firstCap(scan1.nextLine().toLowerCase().trim());
-      Student student1 = new Student(name, email, course);
+      // TODO check for empty entries
 
-      studentList.add(student1);
       studentEmails.add(email);
+      studentList.add(new Student(name, email, course));
     }
 
     scan1.close();
