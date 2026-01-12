@@ -15,12 +15,14 @@
 package ie.uni.collections;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentApp {
   public static void main(String[] args) {
     List<Student> studentList = new ArrayList<>();
+    LinkedHashSet<String> studentEmails = new LinkedHashSet<>();
 
     Scanner scan1 = new Scanner(System.in);
     System.out.println("Please enter the number of students: ");
@@ -36,12 +38,9 @@ public class StudentApp {
       String email = scan1.nextLine().toLowerCase().trim();
 
       // check if email already exists and keep prompting until a unique email is entered
-      for (int j = 0; j < studentList.size(); j++) {
-        while (studentList.get(j).getEmail().equals(email)) {
-          System.out.println("That email is already in the system. Please enter another email:");
-          email = scan1.nextLine().toLowerCase().trim();
-          j = 0;
-        }
+      while (studentEmails.contains(email)) {
+        System.out.println("That email is already in the system. Please enter another email:");
+        email = scan1.nextLine().toLowerCase().trim();
       }
 
       System.out.println("Please enter Course: ");
@@ -49,12 +48,19 @@ public class StudentApp {
       Student student1 = new Student(name, email, course);
 
       studentList.add(student1);
+      studentEmails.add(email);
     }
 
     scan1.close();
 
+    System.out.println("\nStudent Arraylist contains:");
     for (Student student : studentList) {
       System.out.println(student);
+    }
+
+    System.out.println("\nEmail LinkedHashSet contains:");
+    for (String email : studentEmails) {
+      System.out.print(email + " ");
     }
   }
 
