@@ -15,20 +15,24 @@
 package ie.uni.collections;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentApp {
   public static void main(String[] args) {
     List<Student> studentList = new ArrayList<>();
+    LinkedHashSet<String> studentEmails = new LinkedHashSet<>();
 
     Scanner scan1 = new Scanner(System.in);
     System.out.println("Please enter the number of students: ");
+    // TODO if else for positive number, NumberFormatException/InputMismatchException for invalid number
     int count = scan1.nextInt();
     scan1.nextLine();
 
     // prompt user for count number of students and attribute input
     for (int i = 0; i < count; i++) {
+      System.out.println("Student " + (i + 1));
       System.out.println("Please enter Student name: ");
       String name = firstCap(scan1.nextLine().toLowerCase().trim());
 
@@ -36,25 +40,29 @@ public class StudentApp {
       String email = scan1.nextLine().toLowerCase().trim();
 
       // check if email already exists and keep prompting until a unique email is entered
-      for (int j = 0; j < studentList.size(); j++) {
-        while (studentList.get(j).getEmail().equals(email)) {
-          System.out.println("That email is already in the system. Please enter another email:");
-          email = scan1.nextLine().toLowerCase().trim();
-          j = 0;
-        }
+      while (studentEmails.contains(email)) {
+        System.out.println("That email is already in the system. Please enter another email:");
+        email = scan1.nextLine().toLowerCase().trim();
       }
 
       System.out.println("Please enter Course: ");
       String course = firstCap(scan1.nextLine().toLowerCase().trim());
-      Student student1 = new Student(name, email, course);
+      // TODO check for empty entries
 
-      studentList.add(student1);
+      studentEmails.add(email);
+      studentList.add(new Student(name, email, course));
     }
 
     scan1.close();
 
+    System.out.println("\nStudent Arraylist contains:");
     for (Student student : studentList) {
       System.out.println(student);
+    }
+
+    System.out.println("\nEmail LinkedHashSet contains:");
+    for (String email : studentEmails) {
+      System.out.print(email + " ");
     }
   }
 
