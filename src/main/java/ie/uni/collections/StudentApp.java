@@ -14,62 +14,21 @@
 
 package ie.uni.collections;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Scanner;
 
 public class StudentApp {
   public static void main(String[] args) {
-    List<Student> studentList = new ArrayList<>();
-    LinkedHashSet<String> studentEmails = new LinkedHashSet<>();
+    Scanner scanner = new Scanner(System.in);
+    StudentHandler studentHandler = new StudentHandler();
 
-    Scanner scan1 = new Scanner(System.in);
-    System.out.println("Please enter the number of students: ");
-    // TODO if else for positive number, NumberFormatException/InputMismatchException for invalid number
-    int count = scan1.nextInt();
-    scan1.nextLine();
+    System.out.println("Student Entry App\nPlease enter the number of students: ");
+    // TODO: if else for positive number, NumberFormatException/InputMismatchException for invalid number
+    int numberOfStudents = scanner.nextInt();
+    scanner.nextLine(); // Ensure buffer line is consumed after nextInt()
 
-    // prompt user for count number of students and attribute input
-    for (int i = 0; i < count; i++) {
-      System.out.println("Student " + (i + 1));
-      System.out.println("Please enter Student name: ");
-      String name = firstCap(scan1.nextLine().toLowerCase().trim());
-
-      System.out.println("Please enter Student email: ");
-      String email = scan1.nextLine().toLowerCase().trim();
-
-      // check if email already exists and keep prompting until a unique email is entered
-      while (studentEmails.contains(email)) {
-        System.out.println("That email is already in the system. Please enter another email:");
-        email = scan1.nextLine().toLowerCase().trim();
-      }
-
-      System.out.println("Please enter Course: ");
-      String course = firstCap(scan1.nextLine().toLowerCase().trim());
-      // TODO check for empty entries
-
-      studentEmails.add(email);
-      studentList.add(new Student(name, email, course));
-    }
-
-    scan1.close();
-
-    System.out.println("\nStudent Arraylist contains:");
-    for (Student student : studentList) {
-      System.out.println(student);
-    }
-
-    System.out.println("\nEmail LinkedHashSet contains:");
-    for (String email : studentEmails) {
-      System.out.print(email + " ");
-    }
-  }
-
-  // capitalizes the first letter in a String
-  static String firstCap(String text) {
-    char fLetter = Character.toUpperCase(text.charAt(0));
-    String rest = text.substring(1);
-    return fLetter + rest;
+    studentHandler.addStudents(scanner, numberOfStudents);
+    studentHandler.printStudentArrayList();
+    //studentHandler.printEmailLinkedHashSet(); // Kept for debugging
+    scanner.close();
   }
 }
