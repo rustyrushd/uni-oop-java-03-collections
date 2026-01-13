@@ -20,14 +20,15 @@ public class StudentApp {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     StudentHandler studentHandler = new StudentHandler();
+
     System.out.println("Student Entry App\nPlease enter the number of students: ");
-    // TODO if else for positive number, NumberFormatException/InputMismatchException for invalid number
+    // TODO: if else for positive number, NumberFormatException/InputMismatchException for invalid number
     int numberOfStudents = scanner.nextInt();
-    scanner.nextLine(); // ensure buffer line is consumed after nextInt()
+    scanner.nextLine(); // Ensure buffer line is consumed after nextInt()
 
     studentHandler.addStudents(scanner, numberOfStudents);
     studentHandler.printStudentArrayList();
-    studentHandler.printEmailLinkedHashSet();
+    //studentHandler.printEmailLinkedHashSet(); // Kept for debugging
     scanner.close();
   }
 }
