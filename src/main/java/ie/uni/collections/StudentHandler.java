@@ -1,5 +1,8 @@
 package ie.uni.collections;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,6 +15,7 @@ public class StudentHandler {
   private final List<Student> STUDENT_LIST = new ArrayList<>();
   private final LinkedHashSet<String> STUDENT_EMAILS = new LinkedHashSet<>();
   private static final EmailValidator VALIDATOR = EmailValidator.getInstance();
+  private final String STUDENT_ARRAY_LIST_FILENAME = "student_arraylist.txt";
 
   // Input attributes for count number of students
   public void addStudents(Scanner scan1, int count) {
@@ -27,8 +31,10 @@ public class StudentHandler {
       String course = firstCap(scan1.nextLine().toLowerCase().trim());
       // TODO: check for empty entries
 
+      Student student = new Student(name, email, course);
       STUDENT_EMAILS.add(email);
-      STUDENT_LIST.add(new Student(name, email, course));
+      STUDENT_LIST.add(student);
+      writeToFile(student);
     }
   }
 
@@ -53,8 +59,18 @@ public class StudentHandler {
     return emailAddress;
   }
 
+  private void writeToFile(Student student) {
+    try (PrintWriter out = new PrintWriter(new FileWriter(STUDENT_ARRAY_LIST_FILENAME, true))) {
+      out.println(student);
+      System.out.println("Saved to " + STUDENT_ARRAY_LIST_FILENAME);
+    } catch (IOException ex) {
+      System.err.println("Error writing to: " + ex.getMessage());
+    }
+  }
+
   public void printStudentArrayList() {
-    System.out.println("\nStudent Arraylist contains:");
+    System.out.println("\nThe following student(s) were saved to "
+        + STUDENT_ARRAY_LIST_FILENAME + ":");
     for (Student student : STUDENT_LIST) {
       System.out.println(student);
     }
