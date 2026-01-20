@@ -87,7 +87,7 @@ public class StudentHandler {
     // Save student emails in separate file
     try(PrintWriter out = new PrintWriter(new FileWriter(EMAIL_ONLY_LIST_FILENAME, true))) {
       out.println(email);
-      //System.out.println("Saved to " + EMAIL_ONLY_LIST_FILENAME); // debugging
+      System.out.println("Saved to " + EMAIL_ONLY_LIST_FILENAME); // debugging
     } catch (IOException ex) {
       System.err.println("Error writing to: " + ex.getMessage());
     }

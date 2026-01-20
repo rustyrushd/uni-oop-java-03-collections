@@ -29,7 +29,7 @@ public class StudentApp {
 
     studentHandler.addStudents(scanner, numberOfStudents);
     studentHandler.printStudentArrayList();
-    studentHandler.printEmailLinkedHashSet(); // Kept for debugging
+    studentHandler.printEmailLinkedHashSet(); // debugging
     scanner.close();
   }
 }
