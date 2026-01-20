@@ -21,14 +21,15 @@ public class StudentApp {
     Scanner scanner = new Scanner(System.in);
     StudentHandler studentHandler = new StudentHandler();
 
-    System.out.println("Student Entry App\nPlease enter the number of students: ");
+    System.out.println("Student Entry App\nPlease enter the number of new students you would like "
+        + "to create:");
     // TODO: if else for positive number, NumberFormatException/InputMismatchException for invalid number
     int numberOfStudents = scanner.nextInt();
     scanner.nextLine(); // Ensure buffer line is consumed after nextInt()
 
     studentHandler.addStudents(scanner, numberOfStudents);
     studentHandler.printStudentArrayList();
-    //studentHandler.printEmailLinkedHashSet(); // Kept for debugging
+    studentHandler.printEmailLinkedHashSet(); // debugging
     scanner.close();
   }
 }
