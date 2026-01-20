@@ -1,1 +1,4 @@
 Student{ Name = 'Tim', Email = 'tim@tim.com', Course = 'Timmy'}
+Student{ Name = 'Kim', Email = 'kim@kim.com', Course = 'Kimmy'}
+Student{ Name = 'Jim', Email = 'jim@jim.com', Course = 'Jimmy'}
+Student{ Name = 'Tom', Email = 'tom@tom.com', Course = 'Tommy'}

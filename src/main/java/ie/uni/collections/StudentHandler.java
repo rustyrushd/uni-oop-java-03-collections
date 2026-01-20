@@ -1,8 +1,14 @@
 package ie.uni.collections;
 
-import java.io.*;
-import java.util.*;
-import java.util.regex.*;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Scanner;
 import org.apache.commons.validator.routines.EmailValidator;
 
 
@@ -12,6 +18,7 @@ public class StudentHandler {
   private final LinkedHashSet<String> STUDENT_EMAILS = new LinkedHashSet<>();
   private static final EmailValidator VALIDATOR = EmailValidator.getInstance();
   private final String STUDENT_ARRAY_LIST_FILENAME = "student_arraylist.txt";
+  private final String EMAIL_ONLY_LIST_FILENAME = "email_only_list.txt";
 
   // Input attributes for count number of students
   public void addStudents(Scanner scan1, int count) {
@@ -31,21 +38,16 @@ public class StudentHandler {
       Student student = new Student(name, email, course);
       STUDENT_EMAILS.add(email);
       STUDENT_LIST.add(student);
-      writeToFile(student);
+      writeToFile(student, email);
     }
   }
 
   // Parse student emails from file to populate LinkedHashSet
   private void loadStudentEmails(){
-    Pattern emailPattern = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b");
-    try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_ARRAY_LIST_FILENAME))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(EMAIL_ONLY_LIST_FILENAME))) {
       String line;
       while ((line = br.readLine()) != null) {
-        Matcher matcher = emailPattern.matcher(line);
-        if (matcher.find()) {
-          String email = matcher.group();
-          STUDENT_EMAILS.add(email);
-        }
+        STUDENT_EMAILS.add(line);
       }
     } catch (IOException ex) {
       System.out.println("Could not read file: " + ex.getMessage());
@@ -73,10 +75,19 @@ public class StudentHandler {
     return emailAddress;
   }
 
-  private void writeToFile(Student student) {
+  private void writeToFile(Student student, String email) {
+    // Save student data in separate file
     try (PrintWriter out = new PrintWriter(new FileWriter(STUDENT_ARRAY_LIST_FILENAME, true))) {
       out.println(student);
       System.out.println("Saved to " + STUDENT_ARRAY_LIST_FILENAME);
+    } catch (IOException ex) {
+      System.err.println("Error writing to: " + ex.getMessage());
+    }
+
+    // Save student emails in separate file
+    try(PrintWriter out = new PrintWriter(new FileWriter(EMAIL_ONLY_LIST_FILENAME, true))) {
+      out.println(email);
+      //System.out.println("Saved to " + EMAIL_ONLY_LIST_FILENAME); // debugging
     } catch (IOException ex) {
       System.err.println("Error writing to: " + ex.getMessage());
     }
