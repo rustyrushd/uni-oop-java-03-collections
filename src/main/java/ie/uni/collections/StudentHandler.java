@@ -1,12 +1,8 @@
 package ie.uni.collections;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
 import org.apache.commons.validator.routines.EmailValidator;
 
 
@@ -19,6 +15,7 @@ public class StudentHandler {
 
   // Input attributes for count number of students
   public void addStudents(Scanner scan1, int count) {
+    loadStudentEmails();
     for (int i = 0; i < count; i++) {
       System.out.println("\nStudent " + (i + 1));
       System.out.println("Please enter Student name: ");
@@ -35,6 +32,23 @@ public class StudentHandler {
       STUDENT_EMAILS.add(email);
       STUDENT_LIST.add(student);
       writeToFile(student);
+    }
+  }
+
+  // Parse student emails from file to populate LinkedHashSet
+  private void loadStudentEmails(){
+    Pattern emailPattern = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b");
+    try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_ARRAY_LIST_FILENAME))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        Matcher matcher = emailPattern.matcher(line);
+        if (matcher.find()) {
+          String email = matcher.group();
+          STUDENT_EMAILS.add(email);
+        }
+      }
+    } catch (IOException ex) {
+      System.out.println("Could not read file: " + ex.getMessage());
     }
   }
 
