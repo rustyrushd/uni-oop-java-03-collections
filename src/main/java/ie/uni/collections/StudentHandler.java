@@ -107,6 +107,18 @@ public class StudentHandler {
     }
   }
 
+  public void readFromFile() {
+    try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_ARRAY_LIST_FILENAME))) {
+      System.out.println("Contents of " + STUDENT_ARRAY_LIST_FILENAME + ":");
+      String line;
+      while ((line = br.readLine()) != null) {
+        System.out.println(line);
+      }
+    } catch (IOException ex) {
+      System.out.println("Could not read file: " + ex.getMessage());
+    }
+  }
+
   public void printStudentArrayList() {
     System.out.println("\nThe following student(s) were saved to "
         + STUDENT_ARRAY_LIST_FILENAME + ":");
