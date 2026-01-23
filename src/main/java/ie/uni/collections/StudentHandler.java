@@ -54,11 +54,18 @@ public class StudentHandler {
     }
   }
 
-  // Capitalizes the first letter in a String
+  // Capitalizes the first letter of every word in a String
   public String firstCap(String text) {
-    char firstLetter = Character.toUpperCase(text.charAt(0));
-    String rest = text.substring(1);
-    return firstLetter + rest;
+    String[] parts = text.split("\\s+");
+    StringBuilder result = new StringBuilder();
+    for (int i = 0; i < parts.length; i++) {
+      String capitalized = parts[i].substring(0, 1).toUpperCase() + parts[i].substring(1);
+      result.append(capitalized);
+      if (i < parts.length - 1) {
+        result.append(' ');
+      }
+    }
+    return result.toString();
   }
 
   // Check if email is both valid and unique, keep prompting until entered
