@@ -75,7 +75,7 @@ public class StudentHandler {
 
   // Check if email is both valid and unique, keep prompting until entered
   private String emailCheck(String prompt, Scanner scan2) {
-    System.out.println(prompt);
+    System.out.print(prompt);
     String emailAddress = scan2.nextLine();
     while (!VALIDATOR.isValid(emailAddress) | STUDENT_EMAILS.contains(emailAddress)) {
       if (!VALIDATOR.isValid(emailAddress)) {
