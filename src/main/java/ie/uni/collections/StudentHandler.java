@@ -20,7 +20,7 @@ public class StudentHandler {
   private final String STUDENT_ARRAY_LIST_FILENAME = "student_arraylist.txt";
   private final String EMAIL_ONLY_LIST_FILENAME = "email_only_list.txt";
 
-  // Input attributes for count number of students
+  // Input attributes for count number of students, store in collections then write to files
   public void addStudents(Scanner scan1, int count) {
     loadStudentEmails();
     for (int i = 0; i < count; i++) {
@@ -94,7 +94,7 @@ public class StudentHandler {
     // Save student emails in separate file
     try(PrintWriter out = new PrintWriter(new FileWriter(EMAIL_ONLY_LIST_FILENAME, true))) {
       out.println(email);
-      System.out.println("Saved to " + EMAIL_ONLY_LIST_FILENAME); // debugging
+      // System.out.println("Saved to " + EMAIL_ONLY_LIST_FILENAME); // debugging
     } catch (IOException ex) {
       System.err.println("Error writing to: " + ex.getMessage());
     }
@@ -108,6 +108,7 @@ public class StudentHandler {
     }
   }
 
+  // debugging
   public void printEmailLinkedHashSet() {
     System.out.println("\nEmail LinkedHashSet contains:");
     for (String email : STUDENT_EMAILS) {

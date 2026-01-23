@@ -31,10 +31,7 @@ public class Student {
 
   @Override
   public String toString() {
-    return "Student{" +
-        " Name = '" + STUDENT_NAME + '\'' +
-        ", Email = '" + STUDENT_EMAIL + '\'' +
-        ", Course = '" + STUDENT_COURSE + '\'' +
-        '}';
+    return String.format("Name: %s | Email: %s | Course: %s",
+        STUDENT_NAME, STUDENT_EMAIL, STUDENT_COURSE);
   }
 }
