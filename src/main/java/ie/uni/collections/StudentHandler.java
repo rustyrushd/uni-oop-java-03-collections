@@ -36,7 +36,7 @@ public class StudentHandler {
   }
 
   // Parse student emails from file to populate LinkedHashSet
-  private void loadStudentEmails(){
+  public void loadStudentEmails(){
     try (BufferedReader br = new BufferedReader(new FileReader(EMAIL_ONLY_LIST_FILENAME))) {
       String line;
       while ((line = br.readLine()) != null) {

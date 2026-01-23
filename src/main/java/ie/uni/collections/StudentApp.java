@@ -21,15 +21,19 @@ public class StudentApp {
   public static void main(String[] args) {
     try (Scanner scanner = new Scanner(System.in)) {
       StudentHandler studentHandler = new StudentHandler();
-
       System.out.println("Student Entry App\nPlease enter the number of new students you "
           + "would like to create:");
-      // TODO: if else for positive number
       int numberOfStudents = scanner.nextInt();
       scanner.nextLine(); // Ensure buffer line is consumed after nextInt()
-      studentHandler.addStudents(scanner, numberOfStudents);
-      studentHandler.printStudentArrayList();
-      studentHandler.printEmailLinkedHashSet(); // debugging
+      // TODO: option to print current students
+      if (numberOfStudents <= 0) {
+        System.err.println("Invalid input. Please enter a number greater than 0 next time.");
+      } else {
+        studentHandler.loadStudentEmails();
+        studentHandler.addStudents(scanner, numberOfStudents);
+        studentHandler.printStudentArrayList();
+        studentHandler.printEmailLinkedHashSet(); // debugging
+      }
     } catch (InputMismatchException e) {
       System.err.println("This is not a valid number. Please try again next time.");
     }
